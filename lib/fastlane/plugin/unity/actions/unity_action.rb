@@ -5,7 +5,28 @@ module Fastlane
   module Actions
     class UnityAction < Action
       def self.run(params)
-        UI.message("The unity plugin is working!")
+        build_cmd = "#{params[:executable]}"
+        build_cmd << " -projectPath #{params[:project_path]}"
+        build_cmd << " -quit"
+        build_cmd << " -batchmode"
+        build_cmd << " -executeMethod #{params[:execute_method]}" unless params[:execute_method].nil?
+        build_cmd << " -username #{params[:username]}" unless params[:username].nil?
+        build_cmd << " -password #{params[:password]}" unless params[:password].nil?
+
+        UI.message ""
+        UI.message Terminal::Table.new(
+          title: "Unity".green,
+          headings: ["Option", "Value"],
+          rows: params.values
+        )
+        UI.message ""
+
+        UI.message "Start running"
+        UI.message ""
+
+        sh build_cmd
+
+        UI.success "Finished"
       end
 
       def self.description
@@ -17,29 +38,45 @@ module Fastlane
       end
 
       def self.return_value
-        # If your method provides a return value, you can describe here what it does
+
       end
 
       def self.details
-        # Optional:
         "Run Unity command with options"
       end
 
       def self.available_options
+        # See the document for usage.
+        # https://docs.unity3d.com/Manual/CommandLineArguments.html
         [
-          # FastlaneCore::ConfigItem.new(key: :your_option,
-          #                         env_name: "UNITY_YOUR_OPTION",
-          #                      description: "A description of your option",
-          #                         optional: false,
-          #                             type: String)
+          FastlaneCore::ConfigItem.new(key: :executable,
+                                  env_name: "FL_UNITY_EXECUTABLE",
+                               description: "Path to Unity executable",
+                             default_value: "/Applications/Unity/Unity.app/Contents/MacOS/Unity"),
+
+          FastlaneCore::ConfigItem.new(key: :project_path,
+                                  env_name: "FL_UNITY_PROJECT_PATH",
+                               description: "Path to Unity project",
+                             default_value: "#{Dir.pwd}"),
+
+          FastlaneCore::ConfigItem.new(key: :execute_method,
+                                  env_name: "FL_UNITY_EXECUTE_METHOD",
+                               description: "Method to execute",
+                                  optional: true),
+
+          FastlaneCore::ConfigItem.new(key: :username,
+                                  env_name: "FL_UNITY_USERNAME",
+                               description: "User name for log-in",
+                                  optional: true),
+
+          FastlaneCore::ConfigItem.new(key: :password,
+                                  env_name: "FL_UNITY_PASSWORD",
+                               description: "Password for log-in",
+                                  optional: true)
         ]
       end
 
       def self.is_supported?(platform)
-        # Adjust this if your plugin only works for a particular platform (iOS vs. Android, for example)
-        # See: https://docs.fastlane.tools/advanced/#control-configuration-by-lane-and-by-platform
-        #
-        # [:ios, :mac, :android].include?(platform)
         true
       end
     end
