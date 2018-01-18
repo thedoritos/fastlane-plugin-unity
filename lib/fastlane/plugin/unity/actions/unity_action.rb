@@ -6,7 +6,7 @@ module Fastlane
     class UnityAction < Action
       def self.run(params)
         build_cmd = "#{params[:executable]}"
-        build_cmd << " -projectPath #{params[:project_path]}"
+        build_cmd << " -projectPath #{params[:project_path]}" unless params[:project_path].nil?
         build_cmd << " -quit"
         build_cmd << " -batchmode"
         build_cmd << " -executeMethod #{params[:execute_method]}" unless params[:execute_method].nil?
@@ -57,7 +57,8 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :project_path,
                                   env_name: "FL_UNITY_PROJECT_PATH",
                                description: "Path to Unity project",
-                             default_value: "#{Dir.pwd}"),
+                             default_value: "#{Dir.pwd}"
+                                  optional: true),
 
           FastlaneCore::ConfigItem.new(key: :execute_method,
                                   env_name: "FL_UNITY_EXECUTE_METHOD",
