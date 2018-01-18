@@ -57,7 +57,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :project_path,
                                   env_name: "FL_UNITY_PROJECT_PATH",
                                description: "Path to Unity project",
-                             default_value: "#{Dir.pwd}"
+                             default_value: "#{Dir.pwd}",
                                   optional: true),
 
           FastlaneCore::ConfigItem.new(key: :execute_method,
