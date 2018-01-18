@@ -12,6 +12,7 @@ module Fastlane
         build_cmd << " -executeMethod #{params[:execute_method]}" unless params[:execute_method].nil?
         build_cmd << " -username #{params[:username]}" unless params[:username].nil?
         build_cmd << " -password #{params[:password]}" unless params[:password].nil?
+        build_cmd << " -logfile"
 
         UI.message ""
         UI.message Terminal::Table.new(
