@@ -6,12 +6,12 @@ module Fastlane
     class UnityAction < Action
       def self.run(params)
         build_cmd = "#{params[:executable]}"
-        build_cmd << " -projectPath #{params[:project_path]}" unless params[:project_path].nil?
+        build_cmd << " -projectPath \"#{params[:project_path]}\"" unless params[:project_path].nil?
         build_cmd << " -quit"
         build_cmd << " -batchmode"
-        build_cmd << " -executeMethod #{params[:execute_method]}" unless params[:execute_method].nil?
-        build_cmd << " -username #{params[:username]}" unless params[:username].nil?
-        build_cmd << " -password #{params[:password]}" unless params[:password].nil?
+        build_cmd << " -executeMethod \"#{params[:execute_method]}\"" unless params[:execute_method].nil?
+        build_cmd << " -username \"#{params[:username]}\"" unless params[:username].nil?
+        build_cmd << " -password \"#{params[:password]}\"" unless params[:password].nil?
         build_cmd << " -logfile"
 
         UI.message ""
