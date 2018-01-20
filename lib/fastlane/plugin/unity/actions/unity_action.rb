@@ -61,7 +61,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :batchmode,
                                   env_name: "FL_UNITY_BATCHMODE",
                                description: "Should run command in batch mode",
-                             default_value: true,
+                             default_value: false,
                                  is_string: false),
 
           FastlaneCore::ConfigItem.new(key: :project_path,
@@ -73,7 +73,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :quit,
                                   env_name: "FL_UNITY_QUIT",
                                description: "Should quit Unity after execution",
-                             default_value: true,
+                             default_value: false,
                                  is_string: false),
 
           FastlaneCore::ConfigItem.new(key: :execute_method,
