@@ -14,6 +14,9 @@ module Fastlane
         build_cmd << " -password \"#{params[:password]}\"" unless params[:password].nil?
         build_cmd << " -logfile"
 
+        # Must be the last option
+        build_cmd << " &" if params[:background]
+
         UI.message ""
         UI.message Terminal::Table.new(
           title: "Unity".green,
@@ -86,7 +89,13 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :password,
                                   env_name: "FL_UNITY_PASSWORD",
                                description: "Password for log-in",
-                                  optional: true)
+                                  optional: true),
+
+          FastlaneCore::ConfigItem.new(key: :background,
+                                  env_name: "FL_UNITY_BACKGROUND",
+                               description: "Should run command in background (adding &)",
+                             default_value: false,
+                                 is_string: false)
         ]
       end
 
