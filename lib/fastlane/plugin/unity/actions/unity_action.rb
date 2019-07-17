@@ -64,6 +64,12 @@ module Fastlane
                                description: "Should run command in batch mode",
                              default_value: false,
                                  is_string: false),
+          
+          FastlaneCore::ConfigItem.new(key: :nographics,
+                                  env_name: "FL_UNITY_NOGRAPHICS",
+                               description: "Should run unity in non graphics environment",
+                             default_value: false,
+                                 is_string: false),
 
           FastlaneCore::ConfigItem.new(key: :project_path,
                                   env_name: "FL_UNITY_PROJECT_PATH",
