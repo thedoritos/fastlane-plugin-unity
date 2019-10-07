@@ -9,6 +9,7 @@ module Fastlane
         build_cmd << " -projectPath \"#{params[:project_path]}\"" unless params[:project_path].nil?
         build_cmd << " -quit" if params[:quit]
         build_cmd << " -batchmode" if params[:batchmode]
+        build_cmd << " -nographics" if params[:nographics]
         build_cmd << " -executeMethod \"#{params[:execute_method]}\"" unless params[:execute_method].nil?
         build_cmd << " -username \"#{params[:username]}\"" unless params[:username].nil?
         build_cmd << " -password \"#{params[:password]}\"" unless params[:password].nil?
@@ -61,6 +62,12 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :batchmode,
                                   env_name: "FL_UNITY_BATCHMODE",
                                description: "Should run command in batch mode",
+                             default_value: false,
+                                 is_string: false),
+          
+          FastlaneCore::ConfigItem.new(key: :nographics,
+                                  env_name: "FL_UNITY_NOGRAPHICS",
+                               description: "Should run unity in non graphics environment",
                              default_value: false,
                                  is_string: false),
 
